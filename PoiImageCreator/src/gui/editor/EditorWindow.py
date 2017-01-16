@@ -12,7 +12,7 @@ import numpy as np
 class EditorWindow(wx.Frame):
      
     def __init__(self, parent, idd, title, pix=(16, 16), img=None, action=None):
-        wx.Frame.__init__(self, parent, idd, title, size=(500, 580))
+        wx.Frame.__init__(self, parent, idd, title, size=(500, 670))
         self.panel = wx.Panel(self, -1)
         self.scrollPanel = scrolled.ScrolledPanel(self.panel)
         self.innerPanel = wx.Panel(self.scrollPanel, -1)
@@ -26,7 +26,7 @@ class EditorWindow(wx.Frame):
         self.pixSize = 25
         self.createPixels(pix, img)
         
-        self.restScrolledPane()
+        self.resetScrolledPane()
         self.scrollPanel.SetScrollRate(10, 10)
         
         doneBtn = wx.Button(self.panel, -1, "Done")
@@ -54,7 +54,7 @@ class EditorWindow(wx.Frame):
         
 ################################################################################
 
-    def restScrolledPane(self):
+    def resetScrolledPane(self):
         self.scrollPanel.SetVirtualSize((10 + (self.pixX * self.pixSize), 10 + (self.pixY * self.pixSize)))
         
 ################################################################################
@@ -66,7 +66,7 @@ class EditorWindow(wx.Frame):
         x = self.pixX - 1
         for y in xrange(self.pixY):
             self.btns[x][y] = self.createPixel((10 + (self.pixSize * x), 10 + (self.pixSize * y)), self.innerPanel)
-        self.restScrolledPane()
+        self.resetScrolledPane()
         
 ################################################################################
 
@@ -78,7 +78,7 @@ class EditorWindow(wx.Frame):
             self.btns = self.btns[:len(self.btns) - 1]
                 
             self.pixX -= 1
-            self.restScrolledPane()
+            self.resetScrolledPane()
         
 ################################################################################
 

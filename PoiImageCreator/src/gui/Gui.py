@@ -17,6 +17,7 @@ from src.gui.editor.EditorWindow import EditorWindow
 
 # TODO:
 # Dialog before exiting without save
+# Reload Image?
 # Undo edit
 
 ################################################################################
@@ -34,10 +35,9 @@ class Window(wx.Frame):
     dir = os.getcwd()
     
     def __init__(self, parent, idd, title):
-        wx.Frame.__init__(self, parent, idd, title, size=(500, 500))
+        wx.Frame.__init__(self, parent, idd, title, size=(500, 250))
         self.scrollPanel = wx.ScrolledWindow(self)
         
-        self.scrollPanel.SetVirtualSize((500, 500))
         self.scrollPanel.SetScrollRate(20,20)
         
         self.img = None
@@ -228,6 +228,8 @@ class Window(wx.Frame):
                                                 )
                 if data is not None:
                     self.btns[x][y].SetBackgroundColour(data[y, x])
+                    
+        self.scrollPanel.SetVirtualSize((10 + (pixX * self.pixSize), 10 + (pixY * self.pixSize)))
 
 ################################################################################
 
@@ -237,7 +239,8 @@ class Window(wx.Frame):
         if self.display != None:
             self.display.Destroy()
         self.display = wx.StaticBitmap(self.scrollPanel, -1, bmp, pos=(10, 10))
-        self.scrollPanel.SetVirtualSize(bmp.GetSize())
+        size = bmp.GetSize()
+        self.scrollPanel.SetVirtualSize((size[0] + 10, size[1] + 10))
 
 ################################################################################
 
